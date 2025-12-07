@@ -12,7 +12,7 @@
 <h3>ECE/MAE 148 Final Project FA25</h3>
 <p>
 </p>
-<img src="images\CAR.jpg?" width="605" height="501">
+<img src="media\car.jpg?" width="605" height="501">
 </div>
 
 ## Table of Contents
