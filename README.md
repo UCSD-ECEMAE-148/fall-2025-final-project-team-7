@@ -42,16 +42,15 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 
 ## What We Promised
 ### Must Have:
-* Bird’s eye view camera that detects broken down stationary vehicle via hazard lights/no movement, sends signal to activate mechanic
-* Receive “release” signal from bird’s eye view camera and drive track in single lane
-* Detect hazard lights with OAK-D camera
+* Bird’s eye view camera that detects broken down stationary vehicle via hazard lights, sends signal to activate mechanic
+* Receive “release” signal from bird’s eye view camera to start driving forward to search for broken down vehicle
+* Detect back of broken down vehicle with OAK-D camera
 * Stop behind the broken down car using LiDAR 
 
 ### Nice to Have:
 * Avoid other cars/obstacles on the track
-* Change lanes into emergency lane
-* Ability to push the broken down car for a distance (simulating moving the car out of harm's way)
-
+* Ability to push the broken down car for a distance (simulating moving the car out of harm's way) 
+* Change lanes into the emergency lane
 
 ## Accomplishments
 * tbd
