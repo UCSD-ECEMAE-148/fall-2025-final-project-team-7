@@ -3,7 +3,7 @@
 <br />
 <div align="center">
   <a href="https://jacobsschool.ucsd.edu/">
-    <img src="images\UCSD-JSOE-LOGO.png" alt="Logo" width="432" height="108">
+    <img src="media\UCSDLogo_JSOE_BlueGold.png" alt="Logo" width="432" height="108">
   </a>
 
 ## 
