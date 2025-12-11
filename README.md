@@ -83,4 +83,4 @@ tbd
 </div>
  
 ## References
-* tbd
+* [Roboflow Car Detection Model] (https://universe.roboflow.com/ece-148/car-object-detection-vw2le-5heye)
