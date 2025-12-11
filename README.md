@@ -53,7 +53,18 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 * Change lanes into the emergency lane
 
 ## Accomplishments
-* tbd
+* We sucessfully integrated a Jetson Nano with ROS2 node and Intel RealSense Camera for "bird's eye view"
+  * Detects blinking red lights and send publishes release signal
+  * Pi is able to access and recieve the signal that a red blinking light has been detected
+* Created accurate Roboflow model for detecting the cars in general, but focusing on the back of cars
+  * Model runs on the camera with an approximate 90% accuracy
+* We created a ROS2 node on Pi that uses the OAK-D camera running a Roboflow model to calculate the angle from the center of the camera to the center of the broken down vehicle
+  * Measure both left and right offset 
+* We created a second ROS2 node on Pi to control the robot using LiDAR to calculate the distance between the robot and the broken down car
+  * Subscribes to blink detector node on Jetson Nano and camera node on Pi
+  * Car starts driving forward when message is received that red blinking light is  detected on “bird’s eye” camera
+  * Once the Roboflow model detects the broken down car, angle information from camera node is used to navigate the robot with a PD
+  * Car stops when the LiDAR calculates a certain distance from  the broken down car
 
 ## Demonstration
 tbd
