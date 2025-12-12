@@ -70,7 +70,10 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 tbd
 
 ## Challenges
-* tbd 
+* Field of view for the Intel RealSense Camera was not as wide as necessary for a proper "bird's eye view"
+  * The soltion was to lower our placement of the camera closer to the blinking hazard light, but given more time we would replace it with a wide angle camera
+* The PD control as the robot got closer to the broken down car was not as accurate due to the angle of correction needed being much greater at the shorter distances
+  * We solved this by exponentially scaling the error angle between the car and the robot which increased the angle of correction needed when the robot was father away thereby reducing the angle of correction necessary when the robot was closer
  
 ## Robot Design
 <div align="center">
