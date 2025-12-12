@@ -74,6 +74,11 @@ tbd
   * The soltion was to lower our placement of the camera closer to the blinking hazard light, but given more time we would replace it with a wide angle camera
 * The PD control as the robot got closer to the broken down car was not as accurate due to the angle of correction needed being much greater at the shorter distances
   * We solved this by exponentially scaling the error angle between the car and the robot which increased the angle of correction needed when the robot was father away thereby reducing the angle of correction necessary when the robot was closer
+* Our Nice-To-Have goal is to integrate the existing lane detection system (from https://gitlab.com/ucsd_robocar2/ucsd_robocar_lane_detection2_pkg
+) with the mechanic system to enable lane following. Ideally, lane following is activated when the bird’s-eye camera detects a blinking light and remains active until a car is detected. Although the code integration is complete, we encountered an issue where the camera cannot simultaneously run both the Roboflow detection pipeline and the lane detection pipeline. The most likely cause is that the Roboflow detection node creates its own camera pipeline, while the lane detection node also attempts to subscribe directly to the camera, leading to conflicts between the two nodes.
+    * Possible solution: Introduce a dedicated camera node that publishes raw RGB image data. Both the lane detection node and the car detection (Roboflow) node will then subscribe to this shared image topic, allowing them to process the same camera data independently without pipeline conflicts.
+
+
  
 ## Robot Design
 <div align="center">
