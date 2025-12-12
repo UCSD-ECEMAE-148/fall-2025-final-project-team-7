@@ -79,7 +79,7 @@ tbd
 
 ## Electrical Diagram
 <div align="center">
-<img src="images\electrical-diagram.png?" width="581" height="365">
+<img src="media\Electrical_Wiring.png?" width="581" height="365">
 </div>
  
 ## References
