@@ -91,6 +91,19 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 <img src="images\car-cad.png?" width="851" height="386">
 </div>
 
+* Hardware Components list
+  * Traxxas Chasis
+  * Jetson Nano
+  * Inter RealSense D435i
+  * Raspberry pi
+  * OAK-D camera
+  * Lidar LD06
+  * 12V Battery
+  * DC-DC Converter (12V to 5V)
+  * Servo
+  * Motor
+  * VESC
+
 ## Electrical Diagram
 <div align="center">
 <img src="media\Electrical_Wiring.png?" width="581" height="365">
