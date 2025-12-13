@@ -12,7 +12,7 @@
 <h3>ECE/MAE 148 Final Project FA25</h3>
 <p>
 </p>
-<img src="media\car.jpg?" width="1050" height="1582">
+<img src="media\car.jpg?" width="605" height="501">
 </div>
 
 ## Table of Contents
@@ -88,7 +88,7 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
  
 ## Robot Design
 <div align="center">
-<img src="media\car_cad.png?" width="851" height="386">
+<img src="media\car_cad.png?" width="525" height="791">
 </div>
 
 ### Hardware Components list
