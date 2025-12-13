@@ -104,11 +104,15 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 
 ## Electrical Diagram
 <div align="center">
-<img src="media\Electrical_Wiring.png?" width="581" height="365">
+<img src="media\Electrical_Wiring.png?" width="581" height="500">
 </div>
  
 ## References
 * [Roboflow Car Detection Model](https://universe.roboflow.com/ece-148/car-object-detection-vw2le-5heye)
+
+<div align="center">
+<img src="media\team_photo.jpg?" width="582" height="436">
+</div>
 
 ## Acknowledgments
 Documentation inspired by/directly referenced from Team 5 - Fall 2024
