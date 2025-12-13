@@ -26,6 +26,7 @@
     <li><a href="#robot-design">Robot Design</a></li>
     <li><a href="#electrical-diagram">Electrical Diagram</a></li>
     <li><a href="#references">References</a></li>
+    <li><a href="#Acknowledgments">Acknowledgments</a></li>
   </ol>
   
 ## Team Members
@@ -111,3 +112,8 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
  
 ## References
 * [Roboflow Car Detection Model](https://universe.roboflow.com/ece-148/car-object-detection-vw2le-5heye)
+
+## Acknowledgments
+Documentation inspired by/directly referenced from Team 5 - Fall 2024
+
+Thank you to Professor Jack Silberman and our incredible TA's Winston and Aryan for an amazing Fall 2025 class!
