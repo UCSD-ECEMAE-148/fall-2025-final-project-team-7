@@ -88,10 +88,10 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
  
 ## Robot Design
 <div align="center">
-<img src="images\car-cad.png?" width="851" height="386">
+<img src="media\car_cad.png?" width="851" height="386">
 </div>
 
-* Hardware Components list
+### Hardware Components list
   * Traxxas Chasis
   * Jetson Nano
   * Inter RealSense D435i
