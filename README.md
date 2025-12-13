@@ -110,11 +110,13 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 ## References
 * [Roboflow Car Detection Model](https://universe.roboflow.com/ece-148/car-object-detection-vw2le-5heye)
 
-<div align="center">
-<img src="media\team_photo.jpg?" width="582" height="436">
-</div>
-
 ## Acknowledgments
 Documentation inspired by/directly referenced from Team 5 - Fall 2024
 
 Thank you to Professor Jack Silberman and our incredible TA's Winston and Aryan for an amazing Fall 2025 class!
+
+
+
+<div align="center">
+<img src="media\team_photo.jpg?" width="582" height="436">
+</div>
