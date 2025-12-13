@@ -93,7 +93,7 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 </div>
 
 ### Hardware Components list
-  * Traxxas Chasis
+  * Traxxas Chassis with steering servo and sensored brushless DC motor
   * Jetson Nano
   * Inter RealSense D435i
   * Raspberry pi
@@ -101,8 +101,6 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
   * Lidar LD06
   * 12V Battery
   * DC-DC Converter (12V to 5V)
-  * Servo
-  * Motor
   * VESC
 
 ## Electrical Diagram
