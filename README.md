@@ -67,7 +67,11 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
   * Car stops when the LiDAR calculates a certain distance from  the broken down car
 
 ## Demonstration
-tbd
+<div align="center">
+<img src="media/demo.gif" alt="Demo GIF" />
+</div>
+
+[Watch Full Demo Video](media/Demo_Video.mp4)
 
 ## Challenges
 * Field of view for the Intel RealSense Camera was not as wide as necessary for a proper "bird's eye view"
