@@ -3,12 +3,10 @@
 import rclpy
 import math
 from rclpy.node import Node
-# import the LaserScan module from sensor_msgs interface
 from sensor_msgs.msg import LaserScan
 from std_msgs.msg import Float32
 from std_msgs.msg import Float32MultiArray
 from geometry_msgs.msg import Twist
-# import Quality of Service library, to set the correct profile and reliability to read sensor data.
 from rclpy.qos import ReliabilityPolicy, QoSProfile
 from rclpy.executors import MultiThreadedExecutor
 from std_msgs.msg import Bool
@@ -16,25 +14,24 @@ from std_msgs.msg import Bool
 class dist_publisher(Node):
     def __init__(self, node_name="dist_publisher"):
         self.keep_dist = 0.5 #distance in m to keep from lead car
-        
+
         # PID tuning
         self.p_a = 1.75 #P term for turning
         self.p_d = 1.5 #P term for throttle
         self.d_a = 1.2 #D term for turning
         self.d_d = 0.2 #D term for throttle
-        
+
         #for d term
         self.last_a_err = 0
         self.last_d_err = 0
-        
-        
+
         self._node_name = node_name
         self.data = []
         self.tar_ang = 0.0
         self.tar_ind = round(math.pi/2/0.014005)
         self.ang_inc = 0.2
         self.tar_found = False
-        self.blink_detected =False
+        self.blink_detected = False
         super().__init__(self._node_name)
 
         #subscriber to get lidar data
@@ -43,14 +40,14 @@ class dist_publisher(Node):
             '/scan',
             self.laserscan_callback,
             QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE))
-        
+
         #subscriber to get camera data
         self.subscriber_cam = self.create_subscription(
             Float32MultiArray,
             '/camera_data',
             self.target_callback,
             QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE))
-       
+
         self.subscriber_blink = self.create_subscription(
             Bool,
             '/blink_detected',
@@ -105,18 +102,19 @@ class dist_publisher(Node):
             self.blink_detected = True
         else:
             self.get_logger().info("Blink detected: FALSE")
-            self.blink_detected = True
+            self.blink_detected = False
 
     def publish_dist(self):
         """Calculates and publishes velocity commands based on target distance."""
         cmd_msg = Twist()
-
+        current_dist = None
         # If blinking sign not detected
         if not self.blink_detected:
             cmd_msg.linear.x = 0.0
             cmd_msg.angular.z = 0.0
+            self.publisher_.publish(cmd_msg)
         else:
-            # --- 1 case 1. Check if we have a usable distance reading at tar_ind ---
+            # 1. See if target detected
             has_valid_dist = (
                 self.data
                 and self.tar_ind is not None
@@ -124,21 +122,9 @@ class dist_publisher(Node):
                 and self.data[self.tar_ind] != float('inf')
             )
 
-            # --- 1 case2. No target or bad LiDAR → go forward, unless already close ---
+            # 1. No target or bad LiDAR data
             if not has_valid_dist or not self.tar_found:
-                self.get_logger().warn('No valid target or LiDAR data. Drive forward (unless too close).')
-
-                forward_speed = 0.4  # default: move forward
-
-                if has_valid_dist:
-                    current_dist = self.data[self.tar_ind]
-                    # If the distance is close, stop instead of moving forward
-                    if current_dist <= self.keep_dist:
-                        forward_speed = 0.0
-
-                cmd_msg.linear.x = forward_speed
-                cmd_msg.angular.z = 0.0
-                self.publisher_.publish(cmd_msg)
+                # the other node take control(lane following)
                 return
 
             # 2. Get State
@@ -168,8 +154,10 @@ class dist_publisher(Node):
         self.publisher_.publish(cmd_msg)
 
         # Logging (Optional: Log less frequently to avoid console spam)
-        self.get_logger().info(f"Dist: {current_dist:.2f}m | Angle Err: {math.degrees(self.last_a_err):.1f}°")
-
+        if current_dist is not None:
+            self.get_logger().info(
+                f"Dist: {current_dist:.2f}m | Angle Err: {math.degrees(self.last_a_err):.1f}°"
+            )
 
     def _compute_linear_control(self, error):
         """PD Controller for Linear Velocity (Distance)."""
@@ -198,8 +186,8 @@ class dist_publisher(Node):
         self.last_a_err = angle_error
 
         return control_signal
-        
-        
+
+
 def main(args=None):
     rclpy.init(args=args)
     node = dist_publisher()
@@ -215,4 +203,5 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
 
