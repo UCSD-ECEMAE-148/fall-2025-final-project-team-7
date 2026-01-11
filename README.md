@@ -39,14 +39,15 @@
 </ul>
 
 ## Overview
-The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a broken down car on the side of the road via hazard lights. The system uses two cameras, one “bird’s eye” camera mounted above the road which identifies there is a broken down vehicle via a blinking hazard light and one OAK-D camera mounted on the car to detect the car itself on the ground. Using ROS2, the “bird’s eye” camera sends a signal to activate the mechanic while the mechanic receives the signal to start driving on the track to navigate to and park behind the broken down car.
+The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a broken down car on the side of the road via hazard lights. The system uses two cameras, one “bird’s eye” camera mounted above the road which identifies there is a broken down vehicle via a blinking hazard light and one OAK-D camera mounted on the car to detect the car itself on the ground. Using ROS2, the “bird’s eye” camera sends a signal to activate the mechanic while the mechanic receives the signal to start driving following the lane, navigating to and park behind the broken down car.
 
 ## What We Promised
 ### Must Have:
 * Bird’s eye view camera that detects broken down stationary vehicle via hazard lights, sends signal to activate mechanic
 * Receive “release” signal from bird’s eye view camera to start driving forward to search for broken down vehicle
 * Detect back of broken down vehicle with OAK-D camera
-* Stop behind the broken down car using LiDAR 
+* Stop behind the broken down car using LiDAR
+* Drive following the lane
 
 ### Nice to Have:
 * Avoid other cars/obstacles on the track
@@ -74,6 +75,15 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 
 [Watch Full Demo Video](media/Demo_Video.mp4)
 
+* Lane following and car navagate mechanic
+<div align="center">
+<img src="media/demo2_1.gif" alt="Demo GIF" />
+</div>
+
+<div align="center">
+<img src="media/demo2_2.gif" alt="Demo GIF" />
+</div>
+
 ## Challenges
 * Field of view for the Intel RealSense Camera was not as wide as necessary for a proper "bird's eye view"
   * The solution was to lower our placement of the camera closer to the blinking hazard light, but given more time we would replace it with a wide angle camera
@@ -81,10 +91,10 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
   * We solved this by exponentially scaling the error angle between the car and the robot which increased the angle of correction needed when the robot was father away thereby reducing the angle of correction necessary when the robot was closer
 * The blink detection algorithm was too sensitive and would trigger on any red light, not just hazard lights on stopped vehicles.
   * To address this, we converted the bird’s eye camera image to HSV color space to isolate red pixels, applied region-of-interest filtering to focus on potential hazard lights, analyzed temporal brightness changes across frames, and confirmed the blink frequency using a fast Fourier transform (FFT). Only when all three conditions were met did the system send the release signal to the mechanic vehicle, significantly reducing false positives while reliably detecting stopped vehicles with blinking hazard lights.
-* Our Nice-To-Have goal is to integrate the existing lane detection system (from https://gitlab.com/ucsd_robocar2/ucsd_robocar_lane_detection2_pkg) with the mechanic system to enable lane following. Ideally, lane following is activated when the bird’s-eye camera detects a blinking light and remains active until a car is detected. Although the code integration is complete, we encountered an issue where the camera cannot simultaneously run both the Roboflow detection pipeline and the lane detection pipeline. The most likely cause is that the Roboflow detection node creates its own camera pipeline, while the lane detection node also attempts to subscribe directly to the camera, leading to conflicts between the two nodes.
-    * Possible solution: Introduce a dedicated camera node that publishes raw RGB image data. Both the lane detection node and the car detection (Roboflow) node will then subscribe to this shared image topic, allowing them to process the same camera data independently without pipeline conflicts.
-
-
+* When we were integrating the existing lane detection system (from https://gitlab.com/ucsd_robocar2/ucsd_robocar_lane_detection2_pkg) with the mechanic system to enable lane following, we encountered a lot of issues. Ideally, lane following is activated when the bird’s-eye camera detects a blinking light and remains active until a car is detected. Although the code integration is complete, we encountered an issue where the camera cannot simultaneously run both the Roboflow detection pipeline and the lane detection pipeline. The most likely cause is that the Roboflow detection node creates its own camera pipeline, while the lane detection node also attempts to subscribe directly to the camera, leading to conflicts between the two nodes.
+    * Solution: Instead of using the Roboflow model, we rebuild a yoloV8 model and use that in the camera_publisher to avoid conflicts.
+* The second main issue of integrating the existing lane detection system is the oscillation between lane following and car navigation.
+    * To solve that, we disabled lane following for few seconds once a broken-down vehicle was detected, ensuring a clean and stable transition to car navigation behavior.
  
 ## Robot Design
 <div align="center">
@@ -113,9 +123,7 @@ The goal of the "Autonomous Roadside Mechanic" is to identify and navigate a bro
 ## Acknowledgments
 Documentation inspired by/directly referenced from Team 5 - Fall 2024
 
-Thank you to Professor Jack Silberman and our incredible TA's Winston and Aryan for an amazing Fall 2025 class!
-
-
+Thank you to Professor Jack Silberman and our incredible TA's Winston, Aryan and Jingli for an amazing Fall 2025 class!
 
 <div align="center">
 <img src="media\team_photo.jpg?" width="582" height="436">
